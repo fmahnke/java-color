@@ -303,6 +303,43 @@ public class AppTest
 	-0.0954
     };
 
+    double[] testdE2000 = {
+	2.0425,
+	2.8615,
+	3.4412,
+	1.0000,
+	1.0000,
+	1.0000,
+	2.3669,
+	2.3669,
+	7.1792,
+	7.1792,
+	7.2195,
+	7.2195,
+	4.8045,
+	4.8045,
+	4.7461,
+	4.3065,
+	27.1492,
+	22.8977,
+	31.9030,
+	19.4535,
+	1.0000,
+	1.0000,
+	1.0000,
+	1.0000,
+	1.2644,
+	1.2630,
+	1.8731,
+	1.8645,
+	2.0373,
+	1.4146,
+	1.4441,
+	1.5381,
+	0.6377,
+	0.9082
+    };
+
     public void testChromaLab()
     {
 	Lab lab = new Lab(50.0000, 2.6772, -79.7751);
@@ -341,5 +378,14 @@ public class AppTest
 			 gFactors[i]), TOLERANCE);
 	}
 	
+    }
+
+    public void testdE2000()
+    {
+	for(int i = 0; i < INPUTLENGTH; i++)
+	{
+	    assertEquals("stuff", testdE2000[i], App.dE2000(inLab1[i], inLab2[i]),
+			 TOLERANCE);
+	}
     }
 }
