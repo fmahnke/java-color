@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Unit test for simple App.
+ * Unit test for color utilities.
  */
 public class AppTest 
     extends TestCase
@@ -26,19 +26,6 @@ public class AppTest
     public static Test suite()
     {
         return new TestSuite( AppTest.class );
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
-
-    public void testChroma()
-    {
-	assertEquals("stuff", 79.8200, App.chroma(2.6772, -79.7751), TOLERANCE);
     }
 
     final double TOLERANCE = 0.003;
@@ -340,17 +327,25 @@ public class AppTest
 	0.9082
     };
 
+    public void testChroma()
+    {
+	assertEquals("stuff", 79.8200, Chroma.chroma(2.6772, -79.7751),
+		     TOLERANCE);
+    }
+
     public void testChromaLab()
     {
 	Lab lab = new Lab(50.0000, 2.6772, -79.7751);
-	assertEquals("stuff", 79.8200, App.chroma(lab), TOLERANCE);
+	assertEquals("stuff", 79.8200, Chroma.chroma(lab), TOLERANCE);
 
 	int inputLength = inLab1.length;
 
 	for (int i = 0; i < inputLength; i++)
 	{
-	    assertEquals("stuff", outChroma1[i], App.chroma(inLab1[i]), TOLERANCE);
-	    assertEquals("stuff", outChroma2[i], App.chroma(inLab2[i]), TOLERANCE);
+	    assertEquals("stuff", outChroma1[i], Chroma.chroma(inLab1[i]),
+			 TOLERANCE);
+	    assertEquals("stuff", outChroma2[i], Chroma.chroma(inLab2[i]),
+			 TOLERANCE);
 	}
     }
 

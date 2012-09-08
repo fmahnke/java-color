@@ -1,28 +1,26 @@
 package com.fritzmahnke.color;
 
 import java.lang.Math;
-import java.util.logging.Logger;
 import java.util.logging.Handler;
 import java.util.logging.Level;
-//import java.util.logging.Manager;
+import java.util.logging.Logger;
 
 /**
- * Hello world!
+ * Calculates the difference between two colors using the dE2000 formula.
  *
+ * The formula is implemented as in "The CIEDE2000 Color-Difference Formula:
+ * Implementation Notes, Supplementary Test Data, and Mathematical
+ * Observations"
+ *
+ * http://www.ece.rochester.edu/~gsharma/ciede2000/
  */
 public class App 
 {
-    final static double GCONST = Math.pow(25, 7);
-    final static int k_L = 1;
-    final static int k_C = 1;
-    final static int k_H = 1;
-
     private static Logger theLogger = Logger.getLogger(App.class.getName());
 
     public static void main( String[] args )
     {
         System.out.println( "Hello World!" );
-	double dE2000 = dE2000(inLab1[0], inLab2[0]);
     }
 
     public static void loggingOn()
@@ -36,15 +34,13 @@ public class App
 	theLogger.setLevel(Level.FINE);
     }
 
-    public static double chroma(double a, double b)
-    {
-	return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
-    }
-
-    public static double chroma(Lab lab)
-    {
-	return chroma(lab.a, lab.b);
-    }
+    /**
+     * Constants
+     */
+    final static double GCONST = Math.pow(25, 7);
+    final static int k_L = 1;
+    final static int k_C = 1;
+    final static int k_H = 1;
 
     public static double gFactor(double meanC)
     {
@@ -59,12 +55,12 @@ public class App
 	return (1 + g) * a;
     }
 
-    public static double cPrime(double aPrime, double b)
+    private static double cPrime(double aPrime, double b)
     {
 	return Math.sqrt(Math.pow(aPrime, 2) + Math.pow(b, 2));
     }
 
-    public static double hPrime(double aPrime, double b)
+    private static double hPrime(double aPrime, double b)
     {
 	double hPrime = 0;
 
@@ -81,7 +77,7 @@ public class App
 	return hPrime;
     }
 
-    public static double dhCond(double hPrime2, double hPrime1)
+    private static double dhCond(double hPrime2, double hPrime1)
     {
 	double dhCond = 0;
 
@@ -97,7 +93,7 @@ public class App
 	return dhCond;
     }
 
-    public static double dhPrime(double dhCond, double hPrime2, double hPrime1)
+    private static double dhPrime(double dhCond, double hPrime2, double hPrime1)
     {
 	double dhPrime = 0;
 
@@ -120,14 +116,15 @@ public class App
 	return dhPrime;
     }
 
-    public static double dHPrime(double CPrime1, double CPrime2, double dhPrime)
+    private static double dHPrime(double CPrime1, double CPrime2, double dhPrime)
     {
-	double dHPrime = 2 * Math.sqrt(CPrime1 * CPrime2) * Math.sin(Math.toRadians(dhPrime / 2));
+	double dHPrime = 2 * Math.sqrt(CPrime1 * CPrime2) *
+			 Math.sin(Math.toRadians(dhPrime / 2));
 
 	return dHPrime;
     }
 
-    public static double hMean(double CPrime1, double CPrime2, double hPrime2, double hPrime1)
+    private static double hMean(double CPrime1, double CPrime2, double hPrime2, double hPrime1)
     {
 	double hMean = 0;
 
@@ -157,7 +154,7 @@ public class App
 	return hMean;
     }
 
-    public static double hPrimeMean(double hMean, double hPrime1, double hPrime2)
+    private static double hPrimeMean(double hMean, double hPrime1, double hPrime2)
     {
 	double hPrimeMean = 0;
 
@@ -184,7 +181,7 @@ public class App
 	return hPrimeMean;
     }
 
-    public static double S_L(double l1, double l2)
+    private static double S_L(double l1, double l2)
     {
 	double LMean = (l1 + l2) / 2;
 	double LMeanmin50squ = Math.pow((LMean - 50), 2);
@@ -192,12 +189,12 @@ public class App
 	return 1 + (0.015 * LMeanmin50squ / Math.sqrt(20 + LMeanmin50squ));
     }
 
-    public static double S_C(double CPrimeMean)
+    private static double S_C(double CPrimeMean)
     {
 	return 1 + 0.045 * CPrimeMean;
     }
 
-    public static double T(double hPrimeMean)
+    private static double T(double hPrimeMean)
     {
 	double T =
 	    1 - 0.17 * Math.cos(Math.toRadians(hPrimeMean - 30)) +
@@ -208,33 +205,36 @@ public class App
 	return T;
     }
 
-    public static double S_H(double CPrimeMean, double T)
+    private static double S_H(double CPrimeMean, double T)
     {
 	return 1 + 0.015 * CPrimeMean * T;
     }
 
-    public static double dTheta(double hPrimeMean)
+    private static double dTheta(double hPrimeMean)
     {
 	return 30 * Math.exp(-1 * Math.pow((hPrimeMean - 275) / 25, 2));
     }
 
-    public static double R_C(double CPrimeMean)
+    private static double R_C(double CPrimeMean)
     {
 	double CPrimMeanTo7 = Math.pow(CPrimeMean, 7);
 
 	return 2 * Math.sqrt(CPrimMeanTo7 / (CPrimMeanTo7 + GCONST));
     }
 
-    public static double R_T(double dTheta, double R_C)
+    private static double R_T(double dTheta, double R_C)
     {
 	return - Math.sin(Math.toRadians(2 * dTheta)) * R_C;
     }
 
+    /**
+     * Calculate dE2000 between two colors in CIELAB space.
+     */
     public static double dE2000(Lab lab1, Lab lab2)
     {
 	// Calculate chroma
-	double chroma1 = chroma(lab1);
-	double chroma2 = chroma(lab2);
+	double chroma1 = Chroma.chroma(lab1);
+	double chroma2 = Chroma.chroma(lab2);
 
 	// Average
 	double meanChroma = (chroma1 + chroma2) / 2;
