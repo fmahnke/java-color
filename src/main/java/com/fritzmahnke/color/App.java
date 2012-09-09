@@ -39,24 +39,6 @@ import java.util.logging.Logger;
  */
 public class App 
 {
-    private static Logger theLogger = Logger.getLogger(App.class.getName());
-
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-    }
-
-    public static void loggingOn()
-    {
-	Handler[] handlers = Logger.getLogger("").getHandlers();
-	for (int index = 0; index < handlers.length; index++)
-	{
-	  handlers[index].setLevel(Level.FINE);
-	}
-
-	theLogger.setLevel(Level.FINE);
-    }
-
     /**
      * Constants
      */
@@ -155,23 +137,17 @@ public class App
 	{
 	    hMean = 3;
 	}
+	else if (Math.abs(hPrime2 - hPrime1) <= 180)
+	{
+	    hMean = 0;
+	}
+	else if ((hPrime2 + hPrime1) < 360)
+	{
+	    hMean = 1;
+	}
 	else
 	{
-	    if (Math.abs(hPrime2 - hPrime1) <= 180)
-	    {
-		hMean = 0;
-	    }
-	    else
-	    {
-		if ((hPrime2 + hPrime1) < 360)
-		{
-		    hMean = 1;
-		}
-		else
-		{
-		    hMean = 2;
-		}
-	    }
+	    hMean = 2;
 	}
 
 	return hMean;
@@ -185,20 +161,18 @@ public class App
 	{
 	    hPrimeMean = hPrime1 + hPrime2;
 	}
+	else if (hMean == 0)
+	{
+	    hPrimeMean = (hPrime1 + hPrime2) / 2;
+	}
+	else if (hMean == 1)
+	{
+	    hPrimeMean = (hPrime1 + hPrime2) / 2 + 180;
+	}
 	else
 	{
-	    if (hMean == 0)
-	    {
-		hPrimeMean = (hPrime1 + hPrime2) / 2;
-	    }
-	    else if (hMean == 1)
-	    {
-		hPrimeMean = (hPrime1 + hPrime2) / 2 + 180;
-	    }
-	    else
-	    {
-		hPrimeMean = (hPrime1 + hPrime2) / 2 - 180;
-	    }
+	    assert hMean == 2;
+	    hPrimeMean = (hPrime1 + hPrime2) / 2 - 180;
 	}
 
 	return hPrimeMean;
@@ -219,13 +193,11 @@ public class App
 
     private static double T(double hPrimeMean)
     {
-	double T =
+	return
 	    1 - 0.17 * Math.cos(Math.toRadians(hPrimeMean - 30)) +
 	    0.24 * Math.cos(Math.toRadians(2 * hPrimeMean)) +
 	    0.32 * Math.cos(Math.toRadians(3 * hPrimeMean + 6)) -
 	    0.2 * Math.cos(Math.toRadians(4 * hPrimeMean - 63));
-	
-	return T;
     }
 
     private static double S_H(double CPrimeMean, double T)
@@ -247,7 +219,7 @@ public class App
 
     private static double R_T(double dTheta, double R_C)
     {
-	return - Math.sin(Math.toRadians(2 * dTheta)) * R_C;
+	return -Math.sin(Math.toRadians(2 * dTheta)) * R_C;
     }
 
     /**
