@@ -49,10 +49,8 @@ public class App
 
     public static double gFactor(double meanC)
     {
-	double gFactor =
-	    0.5 * (1 - Math.sqrt(Math.pow(meanC, 7) /
-				(Math.pow(meanC, 7) + GCONST)));
-	return gFactor;
+	return 0.5 * (1 - Math.sqrt(Math.pow(meanC, 7) /
+	       (Math.pow(meanC, 7) + GCONST)));
     }
 
     public static double aPrime(double a, double g)
@@ -106,16 +104,14 @@ public class App
 	{
 	    dhPrime = hPrime2 - hPrime1;
 	}
+	else if (dhCond == 1)
+	{
+	    dhPrime = hPrime2 - hPrime1 - 360;
+	}
 	else
 	{
-	    if (dhCond == 1)
-	    {
-		dhPrime = hPrime2 - hPrime1 - 360;
-	    }
-	    else
-	    {
-		dhPrime = hPrime2 - hPrime1 + 360;
-	    }
+	    assert dhCond == 2;
+	    dhPrime = hPrime2 - hPrime1 + 360;
 	}
 
 	return dhPrime;
@@ -123,13 +119,12 @@ public class App
 
     private static double dHPrime(double CPrime1, double CPrime2, double dhPrime)
     {
-	double dHPrime = 2 * Math.sqrt(CPrime1 * CPrime2) *
-			 Math.sin(Math.toRadians(dhPrime / 2));
-
-	return dHPrime;
+	return 2 * Math.sqrt(CPrime1 * CPrime2) *
+	       Math.sin(Math.toRadians(dhPrime / 2));
     }
 
-    private static double hMean(double CPrime1, double CPrime2, double hPrime2, double hPrime1)
+    private static double hMean(double CPrime1, double CPrime2, double hPrime2,
+				double hPrime1)
     {
 	double hMean = 0;
 
@@ -193,11 +188,10 @@ public class App
 
     private static double T(double hPrimeMean)
     {
-	return
-	    1 - 0.17 * Math.cos(Math.toRadians(hPrimeMean - 30)) +
-	    0.24 * Math.cos(Math.toRadians(2 * hPrimeMean)) +
-	    0.32 * Math.cos(Math.toRadians(3 * hPrimeMean + 6)) -
-	    0.2 * Math.cos(Math.toRadians(4 * hPrimeMean - 63));
+	return 1 - 0.17 * Math.cos(Math.toRadians(hPrimeMean - 30)) +
+	       0.24 * Math.cos(Math.toRadians(2 * hPrimeMean)) +
+	       0.32 * Math.cos(Math.toRadians(3 * hPrimeMean + 6)) -
+	       0.2 * Math.cos(Math.toRadians(4 * hPrimeMean - 63));
     }
 
     private static double S_H(double CPrimeMean, double T)
@@ -287,9 +281,8 @@ public class App
 	double term2 = dCPrime / S_C / k_C;
 	double term3 = dHPrime / S_H / k_H;
 
-	double dE2000 =
-	    Math.sqrt(Math.pow(term1, 2) + Math.pow(term2, 2) +
-		      Math.pow(term3, 2) + R_T * term2 * term3);
+	double dE2000 = Math.sqrt(Math.pow(term1, 2) + Math.pow(term2, 2) +
+			Math.pow(term3, 2) + R_T * term2 * term3);
 	
 	return dE2000;
     }	
