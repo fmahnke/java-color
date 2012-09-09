@@ -24,9 +24,6 @@
 package com.fritzmahnke.color;
 
 import java.lang.Math;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Calculates the difference between two colors using the dE2000 formula.
@@ -37,7 +34,7 @@ import java.util.logging.Logger;
  *
  * http://www.ece.rochester.edu/~gsharma/ciede2000/
  */
-public class App 
+public class Calc
 {
     /**
      * Constants

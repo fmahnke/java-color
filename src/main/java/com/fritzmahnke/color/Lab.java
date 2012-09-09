@@ -28,8 +28,11 @@ package com.fritzmahnke.color;
  */
 public class Lab
 {
+    /** L* component */
     double l = 0;
+    /** a* component */
     double a = 0;
+    /** b* component */
     double b = 0;
 
     public Lab(double initL, double initA, double initB)

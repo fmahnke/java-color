@@ -30,7 +30,7 @@ import junit.framework.TestSuite;
 /**
  * Unit test for color utilities.
  */
-public class AppTest 
+public class CalcTest 
     extends TestCase
 {
     /**
@@ -38,9 +38,9 @@ public class AppTest
      *
      * @param testName name of the test case
      */
-    public AppTest( String testName )
+    public CalcTest(String testName)
     {
-        super( testName );
+        super(testName);
     }
 
     /**
@@ -48,13 +48,18 @@ public class AppTest
      */
     public static Test suite()
     {
-        return new TestSuite( AppTest.class );
+        return new TestSuite(CalcTest.class);
     }
 
+    /** Error tolerance allowed for calculations */
     final double TOLERANCE = 0.003;
+
+    /** Size of test data arrays */
     final int INPUTLENGTH = 34;
 
-    Lab[] inLab1 = {
+    /** Test data arrays used in tests */
+
+    Lab[] testLab1 = {
 	new Lab(50.0000, 2.6772, -79.7751),
 	new Lab(50.0000, 3.1571, -77.2803),
 	new Lab(50.0000, 2.8361, -74.0200),
@@ -91,7 +96,7 @@ public class AppTest
 	new Lab(2.0776, 0.0795, -1.1350)
     };
 
-    Lab[] inLab2 = {
+    Lab[] testLab2 = {
 	new Lab(50.0000, 0.0000, -82.7485),
 	new Lab(50.0000, 0.0000, -82.7485),
 	new Lab(50.0000, 0.0000, -82.7485),
@@ -128,7 +133,7 @@ public class AppTest
 	new Lab(0.9033, -0.0636, -0.5514)
     };
 
-    double[] outChroma1 = {
+    double[] testC_ab1 = {
 	79.8200,
 	77.3448,
 	74.0743,
@@ -165,7 +170,7 @@ public class AppTest
 	1.1378
     };
 
-    double[] outChroma2 = {
+    double[] testC_ab2 = {
 	82.7485,
 	82.7485,
 	82.7485,
@@ -202,7 +207,7 @@ public class AppTest
 	0.5551
     };
 
-    double[] gFactors = {
+    double[] testG = {
 	0.0001,
 	0.0001,
 	0.0001,
@@ -350,39 +355,32 @@ public class AppTest
 	0.9082
     };
 
-    public void testChroma()
+    public void testC_ab()
     {
-	assertEquals("stuff", 79.8200, Unit.C_ab(2.6772, -79.7751),
+	assertEquals("Failed", 79.8200, Unit.C_ab(2.6772, -79.7751),
 		     TOLERANCE);
     }
 
-    public void testChromaLab()
+    public void testC_abLab()
     {
-	Lab lab = new Lab(50.0000, 2.6772, -79.7751);
-	assertEquals("stuff", 79.8200, Unit.C_ab(lab), TOLERANCE);
-
-	int inputLength = inLab1.length;
-
-	for (int i = 0; i < inputLength; i++)
+	for (int i = 0; i < INPUTLENGTH; i++)
 	{
-	    assertEquals("stuff", outChroma1[i], Unit.C_ab(inLab1[i]),
+	    assertEquals("Failed", testC_ab1[i], Unit.C_ab(testLab1[i]),
 			 TOLERANCE);
-	    assertEquals("stuff", outChroma2[i], Unit.C_ab(inLab2[i]),
+	    assertEquals("Failed", testC_ab2[i], Unit.C_ab(testLab2[i]),
 			 TOLERANCE);
 	}
     }
 
     public void testGFactor()
     {
-	int inputLength = outChroma1.length;
-
-	for (int i = 0; i < inputLength; i++)
+	for (int i = 0; i < INPUTLENGTH; i++)
 	{
-	    double c1 = outChroma1[i];
-	    double c2 = outChroma2[i];
+	    double c1 = testC_ab1[i];
+	    double c2 = testC_ab2[i];
 	    double meanC = (c1 + c2) / 2;
 
-	    assertEquals("stuff", gFactors[i], App.gFactor(meanC), TOLERANCE);
+	    assertEquals("Failed", testG[i], Calc.gFactor(meanC), TOLERANCE);
 	}
     }
 
@@ -390,10 +388,10 @@ public class AppTest
     {
 	for (int i = 0; i < INPUTLENGTH; i++)
 	{
-	    assertEquals("stuff", testAPrimes1[i], App.aPrime(inLab1[i].a,
-			 gFactors[i]), TOLERANCE);
-	    assertEquals("stuff", testAPrimes2[i], App.aPrime(inLab2[i].a,
-			 gFactors[i]), TOLERANCE);
+	    assertEquals("Failed", testAPrimes1[i], Calc.aPrime(testLab1[i].a,
+			 testG[i]), TOLERANCE);
+	    assertEquals("Failed", testAPrimes2[i], Calc.aPrime(testLab2[i].a,
+			 testG[i]), TOLERANCE);
 	}
 	
     }
@@ -402,8 +400,8 @@ public class AppTest
     {
 	for(int i = 0; i < INPUTLENGTH; i++)
 	{
-	    assertEquals("stuff", testdE2000[i], App.dE2000(inLab1[i], inLab2[i]),
-			 TOLERANCE);
+	    assertEquals("Failed", testdE2000[i],
+			 Calc.dE2000(testLab1[i], testLab2[i]), TOLERANCE);
 	}
     }
 }

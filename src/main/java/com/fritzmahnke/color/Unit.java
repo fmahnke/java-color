@@ -2,6 +2,9 @@ package com.fritzmahnke.color;
 
 import java.lang.Math;
 
+/**
+ * Unit conversions for colors.
+ */
 public class Unit
 {
     /**
