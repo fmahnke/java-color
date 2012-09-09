@@ -1,8 +1,6 @@
-Prototype code for color calculations/conversions.
-
-First priority is a working implementation of delta E 2000 (de2000) color difference formula.
+Color calculations and unit conversions in Java.
 
 Build with maven:
 
-mvn package
+$ mvn package
 
