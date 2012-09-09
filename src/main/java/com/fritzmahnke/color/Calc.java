@@ -265,7 +265,6 @@ public class Calc
 
 	// Calculate dE2000
 	
-	double LPrimMeanSquMin50 = Math.pow(LPrimMean - 50, 2);
 	double S_L = S_L(lab1.l, lab2.l);
 	double S_C = S_C(CPrimMean);
 	double T = T(hPrimeMean);
