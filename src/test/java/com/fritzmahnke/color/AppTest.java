@@ -352,22 +352,22 @@ public class AppTest
 
     public void testChroma()
     {
-	assertEquals("stuff", 79.8200, Chroma.chroma(2.6772, -79.7751),
+	assertEquals("stuff", 79.8200, Unit.C_ab(2.6772, -79.7751),
 		     TOLERANCE);
     }
 
     public void testChromaLab()
     {
 	Lab lab = new Lab(50.0000, 2.6772, -79.7751);
-	assertEquals("stuff", 79.8200, Chroma.chroma(lab), TOLERANCE);
+	assertEquals("stuff", 79.8200, Unit.C_ab(lab), TOLERANCE);
 
 	int inputLength = inLab1.length;
 
 	for (int i = 0; i < inputLength; i++)
 	{
-	    assertEquals("stuff", outChroma1[i], Chroma.chroma(inLab1[i]),
+	    assertEquals("stuff", outChroma1[i], Unit.C_ab(inLab1[i]),
 			 TOLERANCE);
-	    assertEquals("stuff", outChroma2[i], Chroma.chroma(inLab2[i]),
+	    assertEquals("stuff", outChroma2[i], Unit.C_ab(inLab2[i]),
 			 TOLERANCE);
 	}
     }

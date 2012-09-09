@@ -23,6 +23,9 @@
 
 package com.fritzmahnke.color;
 
+/**
+ * Stores a coordinate in CIELAB color space.
+ */
 public class Lab
 {
     double l = 0;

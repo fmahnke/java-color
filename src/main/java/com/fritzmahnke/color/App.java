@@ -222,8 +222,8 @@ public class App
     public static double dE2000(Lab lab1, Lab lab2)
     {
 	// Calculate chroma
-	double chroma1 = Chroma.chroma(lab1);
-	double chroma2 = Chroma.chroma(lab2);
+	double chroma1 = Unit.C_ab(lab1);
+	double chroma2 = Unit.C_ab(lab2);
 
 	// Average
 	double meanChroma = (chroma1 + chroma2) / 2;
