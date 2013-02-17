@@ -124,7 +124,30 @@ public class CgatsReference implements Reference {
 	return samples;
     }
 
-    public CgatsReference(List<ColorSample> samples) {
+    public static void averageReference(List<Reference> refs) {
+	List<List<ColorSample>> sampleSets = new ArrayList<List<ColorSample>>();
+
+	for (Reference ref : refs) {
+	    sampleSets.add(ref.getSamples());
+	}
+
+	int numberOfSets = refs.size();
+	int numberOfSamples = sampleSets.get(0).size();
+
+	List<ColorSample> averagedSamples = new ArrayList<ColorSample>(numberOfSamples);
+
+	for (int sample = 0; sample < numberOfSamples; ++sample) {
+	    List<ColorSample> toAverage = new ArrayList<ColorSample>();
+
+	    for (int set = 0; set < numberOfSets; ++set) {
+	        toAverage.add(sampleSets.get(set).get(sample));
+	    }
+	    ColorSample avgSample = ColorSample.average(toAverage);
+	    averagedSamples.add(avgSample);
+	}
+    }
+
+    public CgatsReference(List<String> fields, List<ColorSample> samples) {
 	numberOfSamples = samples.size();
 	this.samples = samples;
     }
