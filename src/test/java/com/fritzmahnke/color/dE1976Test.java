@@ -27,23 +27,21 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import java.io.InputStream;
-import java.io.IOException;
-import java.util.List;
-import java.util.ArrayList;
-
 /**
  * Unit test for color utilities.
  */
-public class ColorSampleTest 
+public class dE1976Test 
     extends TestCase
 {
+    private LabCoord lab1 = new LabCoord(26.19, 0.7, 1.16);
+    private LabCoord lab2 = new LabCoord(46.29, 12.47, 12.92);
+
     /**
      * Create the test case
      *
      * @param testName name of the test case
      */
-    public ColorSampleTest(String testName)
+    public dE1976Test(String testName)
     {
         super(testName);
     }
@@ -53,25 +51,11 @@ public class ColorSampleTest
      */
     public static Test suite()
     {
-        return new TestSuite(ColorSampleTest.class);
+        return new TestSuite(dE1976Test.class);
     }
 
-    public void testAverage() {
-	List<ColorSample> samples = new ArrayList<ColorSample>();
-	samples.add(TestData.sample1);
-	samples.add(TestData.sample2);
-	samples.add(TestData.sample3);
-	samples.add(TestData.sample4);
-	samples.add(TestData.sample5);
-
-	ColorSample average = ColorSample.average(samples);
-	LabCoord labCoord = average.getLabCoord();
-	double L = labCoord.getL();
-	double A = labCoord.getA();
-	double B = labCoord.getB();
-
-	assertEquals(48.14, L, 0.01);
-	assertEquals(-3.00, A, 0.01);
-	assertEquals(21.61, B, 0.01);
+    public void testDe1976() {
+	double result = dE1976.dE1976(lab1, lab2);
+	assertEquals(26.09, result, 0.01);
     }
 }

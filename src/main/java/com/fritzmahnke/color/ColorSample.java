@@ -7,9 +7,32 @@ public class ColorSample {
     private String sampleName;
     private CMYKCoord cmykCoord;
     private LabCoord labCoord;
+    private List<ColorObjectElement> colorObjectElements;
+
+    public String getSampleId() {
+	return sampleId;
+    }
+
+    public String getSampleName() {
+	return sampleName;
+    }
+
+    public CMYKCoord getCmykCoord() {
+	return cmykCoord;
+    }
 
     public LabCoord getLabCoord() {
 	return labCoord;
+    }
+
+    /**
+     * Calculate dE1976 between two samples
+     */
+    public static double dE1976(ColorSample sample1, ColorSample sample2) {
+	LabCoord lab1 = sample1.getLabCoord();
+	LabCoord lab2 = sample2.getLabCoord();
+
+	return dE1976.dE1976(lab1, lab2);
     }
 
     public static ColorSample average(List<ColorSample> samples) {
@@ -17,6 +40,12 @@ public class ColorSample {
 	double sumA = 0;
 	double sumB = 0;
 
+	// Take common data from first sample for now
+	CMYKCoord masterCMYK = samples.get(0).getCmykCoord();
+	String masterSampleId = samples.get(0).getSampleId();
+	String masterName = samples.get(0).getSampleName();
+	
+	// Average all samples in our list
 	for (ColorSample sample : samples) {
 	    LabCoord labCoord = sample.getLabCoord();
 	    sumL += labCoord.getL();
@@ -26,8 +55,13 @@ public class ColorSample {
 	double avgL = sumL / samples.size();
 	double avgA = sumA / samples.size();
 	double avgB = sumB / samples.size();
+	avgL = Math.round(avgL, 4);
+	avgA = Math.round(avgA, 4);
+	avgB = Math.round(avgB, 4);
 
-	return new ColorSample("", "", 0, 0, 0, 0, avgL, avgA, avgB);
+	return new ColorSample(masterSampleId, masterName, masterCMYK.getC(),
+			       masterCMYK.getM(), masterCMYK.getM(),
+			       masterCMYK.getM(), avgL, avgA, avgB);
     }
 
     public ColorSample(String id, String name, double c, double m, double y,

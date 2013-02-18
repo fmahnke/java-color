@@ -124,7 +124,11 @@ public class CgatsReference implements Reference {
 	return samples;
     }
 
-    public static void averageReference(List<Reference> refs) {
+    public List<String> getDataFields() {
+	return dataFields;
+    }
+
+    public static Reference averageReference(List<Reference> refs) {
 	List<List<ColorSample>> sampleSets = new ArrayList<List<ColorSample>>();
 
 	for (Reference ref : refs) {
@@ -132,7 +136,10 @@ public class CgatsReference implements Reference {
 	}
 
 	int numberOfSets = refs.size();
+
+	// Use first ref as the master for now
 	int numberOfSamples = sampleSets.get(0).size();
+	List<String> dataFields = refs.get(0).getDataFields();
 
 	List<ColorSample> averagedSamples = new ArrayList<ColorSample>(numberOfSamples);
 
@@ -145,9 +152,14 @@ public class CgatsReference implements Reference {
 	    ColorSample avgSample = ColorSample.average(toAverage);
 	    averagedSamples.add(avgSample);
 	}
+
+	Reference averagedRef = new CgatsReference(dataFields, averagedSamples);
+
+	return averagedRef;
     }
 
     public CgatsReference(List<String> fields, List<ColorSample> samples) {
+	dataFields = fields;
 	numberOfSamples = samples.size();
 	this.samples = samples;
     }
