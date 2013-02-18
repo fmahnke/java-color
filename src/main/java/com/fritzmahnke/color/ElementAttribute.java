@@ -1,12 +1,25 @@
 package com.fritzmahnke.color;
 
-public class ElementAttribute<N, V> implements Attribute<N, V> {
-    private N name;
+public class ElementAttribute<K, V> implements Attribute<K, V> {
+    private K name;
     private V value;
 
-    public ElementAttribute(N key, V value) {
-	name = key;
-	value = value;
+    public K getName() {
+	return name;
+    }
+
+    public V getValue() {
+	return value;
+    }
+
+    public ElementAttribute(K key, V value) {
+	this.name = key;
+	this.value = value;
+    }
+
+    @Override
+    public String toString() {
+	return "[name: " + name.toString() + ", value: " + value.toString() + "]";
     }
 }
 

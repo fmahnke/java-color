@@ -1,13 +1,14 @@
 package com.fritzmahnke.color;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class ColorSample {
     private String sampleId;
     private String sampleName;
     private CMYKCoord cmykCoord;
     private LabCoord labCoord;
-    private List<ColorObjectElement> colorObjectElements;
+    private List<ColorObjectElement> colorObjectElements = new ArrayList<ColorObjectElement>();
 
     public String getSampleId() {
 	return sampleId;
@@ -23,6 +24,60 @@ public class ColorSample {
 
     public LabCoord getLabCoord() {
 	return labCoord;
+    }
+
+    public List<ColorObjectElement> getElements() {
+	return colorObjectElements;
+    }
+
+    /**
+     * Create a tabulated representation of the sample
+     */
+    public static String toTable(List<ColorSample> samples) {
+	List<String> elementNames = new ArrayList<String>();
+	
+	StringBuilder table = new StringBuilder();
+
+	// Build list of headers
+	for (ColorSample sample : samples) {
+	    for (ColorObjectElement element : sample.getElements()) {
+		List<Attribute> attributes = element.getAttributes();
+		
+		for (Attribute attribute : attributes) {
+		    String name = (String) attribute.getName();
+		    
+		    if (! elementNames.contains(name)) {
+			elementNames.add(name);
+			table.append(name + "\t");
+		    }
+		}
+	    }
+	}
+	table.append("\n");
+
+	for (ColorSample sample : samples) {
+	    for (ColorObjectElement element : sample.getElements()) {
+		List<Attribute> attributes = element.getAttributes();
+		
+		for (String name : elementNames) {
+		    Attribute attribute = element.findAttribute(name);
+		    if (attribute != null) {
+			Double value = (Double) attribute.getValue();
+			table.append(value + "\t");
+		    }
+		}
+	    }
+	    table.append("\n");
+	}
+
+	return table.toString();
+    }
+
+    /**
+     * Add an element to this sample
+     */
+    public void addElement(ColorObjectElement element) {
+	colorObjectElements.add(element);
     }
 
     /**
@@ -62,6 +117,9 @@ public class ColorSample {
 	return new ColorSample(masterSampleId, masterName, masterCMYK.getC(),
 			       masterCMYK.getM(), masterCMYK.getM(),
 			       masterCMYK.getM(), avgL, avgA, avgB);
+    }
+
+    public ColorSample() {
     }
 
     public ColorSample(String id, String name, double c, double m, double y,

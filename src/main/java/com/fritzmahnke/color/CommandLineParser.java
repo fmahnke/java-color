@@ -13,18 +13,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class CommandLineParser {
-      //@Parameter
-//	    private List<String> parameters = new ArrayList<String>();
-      /* 
-        @Parameter(names = { "-log", "-verbose" }, description = "Level of verbosity")
-	      private Integer verbose = 1;
-	 
-	  @Parameter(names = "-groups", description = "Comma-separated list of group names to be run")
-	        private String groups;
-	   
-	    @Parameter(names = "-debug", description = "Debug mode")
-		  private boolean debug = false;
-		  */
     @Parameter(description = "Command")
 	private List<String> command = new ArrayList<String>();
 
@@ -85,18 +73,30 @@ public class CommandLineParser {
 	samples1 = refs.get(0).getSamples();
 	samples2 = refs.get(1).getSamples();
 
-	List<Double> dEList = new ArrayList<Double>();
+	List<ColorSample> results = new ArrayList<ColorSample>();
 
 	// Use samples1 as the master
-	// @todo Need to handle disimmilar sample sizes
+	// @todo Need to handle dissimilar sample sizes
 
 	for (int sample = 0; sample < samples1.size(); ++sample) {
+
+	    LabCoord lab1 = samples1.get(sample).getLabCoord();
+	    LabCoord lab2 = samples2.get(sample).getLabCoord();
+	    LabCoord dLab = dE1976.dLab(lab1, lab2);
+	    
 	    double dE = ColorSample.dE1976(samples1.get(sample),
 					   samples2.get(sample));
-	    dEList.add(dE);
+
+	    ColorSample result = new ColorSample();
+	    Element colorValues = ColorValues.colorCieLab(lab1.getL(), lab1.getA(), lab1.getB());
+	    Element colorDiff = ColorDifferenceValues.colorDifferenceValues(dLab, dE);
+	    result.addElement(colorValues);
+	    result.addElement(colorDiff);
+
+	    results.add(result);
 	}
 
-	System.out.println(dEList.toString());
+	System.out.println(ColorSample.toTable(results));
     }
 
     public static void callAverage(List<String> files) {
