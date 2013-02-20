@@ -7,12 +7,14 @@ import java.util.List;
  *
  * @author Fritz Mahnke
  */
-public interface ColorObjectElement<K, V> {
+public interface IElement<K, V> {
     /**
      * Get a list of attribute names
      */
-    public List<Attribute> getAttributes();
-    public Attribute findAttribute(K name);
+    public void setAttribute(K name, V value);
+    /// @todo maybe move it to own class
+    public void setText(String text);
+    public String toJSON(int indentLevel);
 
     @Override
     public String toString();

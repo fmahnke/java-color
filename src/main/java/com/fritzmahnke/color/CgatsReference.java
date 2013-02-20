@@ -12,7 +12,7 @@ public class CgatsReference implements Reference {
     private int numberOfFields;
     private int rowLength;
     private int numberOfSamples;
-    private List<ColorSample> samples = new ArrayList<ColorSample>();
+    private List<CxFDocument> samples = new ArrayList<CxFDocument>();
     private List<String> dataFields;
 
     private enum Flag {
@@ -115,12 +115,12 @@ public class CgatsReference implements Reference {
 	    ++fieldIndex;
 	}
 	
-	ColorSample sample = new ColorSample(sampleId, sampleName, c, m, y, k,
+	CxFDocument sample = new CxFDocument(sampleId, sampleName, c, m, y, k,
 					     l, a, b);
 	samples.add(sample);
     }
 
-    public List<ColorSample> getSamples() {
+    public List<CxFDocument> getSamples() {
 	return samples;
     }
 
@@ -129,7 +129,7 @@ public class CgatsReference implements Reference {
     }
 
     public static Reference averageReference(List<Reference> refs) {
-	List<List<ColorSample>> sampleSets = new ArrayList<List<ColorSample>>();
+	List<List<CxFDocument>> sampleSets = new ArrayList<List<CxFDocument>>();
 
 	for (Reference ref : refs) {
 	    sampleSets.add(ref.getSamples());
@@ -141,15 +141,15 @@ public class CgatsReference implements Reference {
 	int numberOfSamples = sampleSets.get(0).size();
 	List<String> dataFields = refs.get(0).getDataFields();
 
-	List<ColorSample> averagedSamples = new ArrayList<ColorSample>(numberOfSamples);
+	List<CxFDocument> averagedSamples = new ArrayList<CxFDocument>(numberOfSamples);
 
 	for (int sample = 0; sample < numberOfSamples; ++sample) {
-	    List<ColorSample> toAverage = new ArrayList<ColorSample>();
+	    List<CxFDocument> toAverage = new ArrayList<CxFDocument>();
 
 	    for (int set = 0; set < numberOfSets; ++set) {
 	        toAverage.add(sampleSets.get(set).get(sample));
 	    }
-	    ColorSample avgSample = ColorSample.average(toAverage);
+	    CxFDocument avgSample = CxFDocument.average(toAverage);
 	    averagedSamples.add(avgSample);
 	}
 
@@ -158,7 +158,7 @@ public class CgatsReference implements Reference {
 	return averagedRef;
     }
 
-    public CgatsReference(List<String> fields, List<ColorSample> samples) {
+    public CgatsReference(List<String> fields, List<CxFDocument> samples) {
 	dataFields = fields;
 	numberOfSamples = samples.size();
 	this.samples = samples;
@@ -191,7 +191,7 @@ public class CgatsReference implements Reference {
 	    ref.append("\n");
 	}
 
-	for (ColorSample sample : samples) {
+	for (CxFDocument sample : samples) {
 	    ref.append(sample.toString());
 	}
 

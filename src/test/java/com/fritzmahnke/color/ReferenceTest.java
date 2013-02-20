@@ -58,14 +58,14 @@ public class ReferenceTest
     }
 
     public void testCgatsAverage() {
-	List<ColorSample> samples1 = new ArrayList<ColorSample>();
+	List<CxFDocument> samples1 = new ArrayList<CxFDocument>();
 	samples1.add(TestData.sample1);
 	samples1.add(TestData.sample2);
 	samples1.add(TestData.sample3);
 	samples1.add(TestData.sample4);
 	samples1.add(TestData.sample5);
 
-	List<ColorSample> samples2 = new ArrayList<ColorSample>();
+	List<CxFDocument> samples2 = new ArrayList<CxFDocument>();
 	samples2.add(TestData.sample6);
 	samples2.add(TestData.sample7);
 	samples2.add(TestData.sample8);
@@ -80,7 +80,7 @@ public class ReferenceTest
 	toAverage.add(ref2);
 
 	Reference averageRef = CgatsReference.averageReference(toAverage);
-	List<ColorSample> average = averageRef.getSamples();
+	List<CxFDocument> average = averageRef.getSamples();
 
 	LabCoord coord = average.get(0).getLabCoord();
 	assertEquals(62.6, coord.getL(), 0.01);
@@ -109,14 +109,14 @@ public class ReferenceTest
      */
     public void testCgatsAssymetricalAverage() {
 	/*
-	List<ColorSample> samples1 = new ArrayList<ColorSample>();
+	List<CxFDocument> samples1 = new ArrayList<CxFDocument>();
 	samples1.add(TestData.sample1);
 	samples1.add(TestData.sample2);
 	samples1.add(TestData.sample3);
 	samples1.add(TestData.sample4);
 	samples1.add(TestData.sample5);
 
-	List<ColorSample> samples2 = new ArrayList<ColorSample>();
+	List<CxFDocument> samples2 = new ArrayList<CxFDocument>();
 	samples2.add(TestData.sample6);
 	samples2.add(TestData.sample7);
 	samples2.add(TestData.sample8);
@@ -129,7 +129,7 @@ public class ReferenceTest
 	toAverage.add(ref1);
 	toAverage.add(ref2);
 
-	List<ColorSample> average = CgatsReference.averageReference(toAverage);
+	List<CxFDocument> average = CgatsReference.averageReference(toAverage);
 	*/
     }
 

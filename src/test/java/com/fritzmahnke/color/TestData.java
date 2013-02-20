@@ -40,26 +40,37 @@ public class TestData {
 						   "cmyk_k", "lab_l", "lab_a",
 						   "lab_b"));
     
-    public static final ColorSample sample1 =
-	new ColorSample("722", "A1", 100.00, 10.00, 100.00, 0.00, 47.83, -62.03, 22.35);
-    public static final ColorSample sample2 =
-	new ColorSample("1410", "A2", 0.00, 100.00, 100.00, 70.00, 23.40, 30.65, 18.62);
-    public static final ColorSample sample3 =
-	new ColorSample("873", "A3", 100.00, 100.00, 40.00, 20.00, 21.03, 6.53, -23.64);
-    public static final ColorSample sample4 =
-	new ColorSample("427", "A4", 20.00, 30.00, 55.00, 0.00, 71.25, 6.45, 26.90);
-    public static final ColorSample sample5 =
-	new ColorSample("579", "A5", 10.00, 20.00, 85.00, 0.00, 77.21, 3.42, 63.80);
+    public static final CxFDocument sample1 =
+	new CxFDocument("722", "A1", 100.00, 10.00, 100.00, 0.00, 47.83, -62.03, 22.35);
+    public static final CxFDocument sample2 =
+	new CxFDocument("1410", "A2", 0.00, 100.00, 100.00, 70.00, 23.40, 30.65, 18.62);
+    public static final CxFDocument sample3 =
+	new CxFDocument("873", "A3", 100.00, 100.00, 40.00, 20.00, 21.03, 6.53, -23.64);
+    public static final CxFDocument sample4 =
+	new CxFDocument("427", "A4", 20.00, 30.00, 55.00, 0.00, 71.25, 6.45, 26.90);
+    public static final CxFDocument sample5 =
+	new CxFDocument("579", "A5", 10.00, 20.00, 85.00, 0.00, 77.21, 3.42, 63.80);
 
-    public static final ColorSample sample6 =
-	new ColorSample("1453", "A6", 40.00, 0.00, 3.00, 3.00, 77.37, -13.46, -19.61);
-    public static final ColorSample sample7 =
-	new ColorSample("938", "A7", 70.00, 70.00, 100.00, 20.00, 32.71, 2.51, 16.25);
-    public static final ColorSample sample8 =
-	new ColorSample("672", "A8", 20.00, 55.00, 100.00, 0.00, 58.47, 23.80, 53.57);
-    public static final ColorSample sample9 =
-	new ColorSample("1251", "A9", 40.00, 100.00, 100.00, 80.00, 15.94, 14.31, 8.52);
-    public static final ColorSample sample10 =
-	new ColorSample("366", "A10", 40.00, 55.00, 40.00, 0.00, 54.12, 16.31, 1.11);
+    public static final CxFDocument sample6 =
+	new CxFDocument("1453", "A6", 40.00, 0.00, 3.00, 3.00, 77.37, -13.46, -19.61);
+    public static final CxFDocument sample7 =
+	new CxFDocument("938", "A7", 70.00, 70.00, 100.00, 20.00, 32.71, 2.51, 16.25);
+    public static final CxFDocument sample8 =
+	new CxFDocument("672", "A8", 20.00, 55.00, 100.00, 0.00, 58.47, 23.80, 53.57);
+    public static final CxFDocument sample9 =
+	new CxFDocument("1251", "A9", 40.00, 100.00, 100.00, 80.00, 15.94, 14.31, 8.52);
+    public static final CxFDocument sample10 =
+	new CxFDocument("366", "A10", 40.00, 55.00, 40.00, 0.00, 54.12, 16.31, 1.11);
+
+    public static final double[] lab1 = { 47.83, -62.03, 22.35 };
+    public static final double[] lab2 = { 23.40, 30.65, 18.62 };
+    public static final double[] lab3 = { 21.03, 6.53, -23.64 };
+    public static final double[] lab4 = { 71.25, 6.45, 26.90 };
+    public static final double[] lab5 = { 77.21, 3.42, 63.80 };
+    public static final double[] lab6 = { 77.37, -13.46, -19.61 };
+    public static final double[] lab7 = { 32.71, 2.51, 16.25 };
+    public static final double[] lab8 = { 58.47, 23.80, 53.57 };
+    public static final double[] lab9 = { 15.94, 14.31, 8.52 };
+    public static final double[] lab10 = { 54.12, 16.31, 1.11 };
 }
 

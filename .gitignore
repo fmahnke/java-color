@@ -1,2 +1,6 @@
 *.swp
+*.swm
+*.swn
+.DS_Store
+target/
 

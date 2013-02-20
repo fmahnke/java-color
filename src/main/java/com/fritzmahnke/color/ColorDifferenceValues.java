@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 
 public class ColorDifferenceValues<K> {
 
-    public static Element colorDifferenceValues(LabCoord dLab, double dE1976) {
+    public static IElement colorDifferenceValues(LabCoord dLab, double dE1976) {
 	double l = dLab.getL();
 	double a = dLab.getA();
 	double b = dLab.getB();
@@ -17,7 +17,7 @@ public class ColorDifferenceValues<K> {
 	map.put("dA", a);
 	map.put("dB", b);
 	map.put("dE1976", dE1976);
-	Element element = new Element(map);
+	IElement element = new Element(map);
 
 	return element;
     }

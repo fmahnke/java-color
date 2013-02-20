@@ -35,7 +35,7 @@ import java.util.ArrayList;
 /**
  * Unit test for color utilities.
  */
-public class ColorSampleTest 
+public class CxFDocumentTest 
     extends TestCase
 {
     /**
@@ -43,7 +43,7 @@ public class ColorSampleTest
      *
      * @param testName name of the test case
      */
-    public ColorSampleTest(String testName)
+    public CxFDocumentTest(String testName)
     {
         super(testName);
     }
@@ -53,18 +53,18 @@ public class ColorSampleTest
      */
     public static Test suite()
     {
-        return new TestSuite(ColorSampleTest.class);
+        return new TestSuite(CxFDocumentTest.class);
     }
 
     public void testAverage() {
-	List<ColorSample> samples = new ArrayList<ColorSample>();
+	List<CxFDocument> samples = new ArrayList<CxFDocument>();
 	samples.add(TestData.sample1);
 	samples.add(TestData.sample2);
 	samples.add(TestData.sample3);
 	samples.add(TestData.sample4);
 	samples.add(TestData.sample5);
 
-	ColorSample average = ColorSample.average(samples);
+	CxFDocument average = CxFDocument.average(samples);
 	LabCoord labCoord = average.getLabCoord();
 	double L = labCoord.getL();
 	double A = labCoord.getA();
@@ -73,5 +73,21 @@ public class ColorSampleTest
 	assertEquals(48.14, L, 0.01);
 	assertEquals(-3.00, A, 0.01);
 	assertEquals(21.61, B, 0.01);
+    }
+
+    public void testNewDocument() {
+
+	MeasurementSpec measSpec  = new MeasurementSpec();
+	ColorSpecification colorSpec = new ColorSpecification("id", measSpec);
+
+	ColorCIELab colorCIELab = new ColorCIELab("", colorSpec, 100.0, 90.0, 80.0);
+	System.out.println(colorCIELab.toJSON(0));
+	ColorValues colorValues = new ColorValues();
+	colorValues.addColorCIELab(colorCIELab);
+	ColorObject colorObject = new ColorObject("one", "two", "three");
+	colorObject.addColorValues(colorValues);
+
+	CxFDocument cxf = new CxFDocument();
+	cxf.addObject(colorObject);
     }
 }
