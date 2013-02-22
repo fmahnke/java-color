@@ -58,14 +58,14 @@ public class ReferenceTest
     }
 
     public void testCgatsAverage() {
-	List<CxFDocument> samples1 = new ArrayList<CxFDocument>();
+	List<CxfDocument> samples1 = new ArrayList<CxfDocument>();
 	samples1.add(TestData.sample1);
 	samples1.add(TestData.sample2);
 	samples1.add(TestData.sample3);
 	samples1.add(TestData.sample4);
 	samples1.add(TestData.sample5);
 
-	List<CxFDocument> samples2 = new ArrayList<CxFDocument>();
+	List<CxfDocument> samples2 = new ArrayList<CxfDocument>();
 	samples2.add(TestData.sample6);
 	samples2.add(TestData.sample7);
 	samples2.add(TestData.sample8);
@@ -80,7 +80,7 @@ public class ReferenceTest
 	toAverage.add(ref2);
 
 	Reference averageRef = CgatsReference.averageReference(toAverage);
-	List<CxFDocument> average = averageRef.getSamples();
+	List<CxfDocument> average = averageRef.getSamples();
 
 	LabCoord coord = average.get(0).getLabCoord();
 	assertEquals(62.6, coord.getL(), 0.01);

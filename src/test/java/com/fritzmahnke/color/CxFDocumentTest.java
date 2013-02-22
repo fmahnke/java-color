@@ -35,7 +35,7 @@ import java.util.ArrayList;
 /**
  * Unit test for color utilities.
  */
-public class CxFDocumentTest 
+public class CxfDocumentTest 
     extends TestCase
 {
     /**
@@ -43,7 +43,7 @@ public class CxFDocumentTest
      *
      * @param testName name of the test case
      */
-    public CxFDocumentTest(String testName)
+    public CxfDocumentTest(String testName)
     {
         super(testName);
     }
@@ -53,18 +53,18 @@ public class CxFDocumentTest
      */
     public static Test suite()
     {
-        return new TestSuite(CxFDocumentTest.class);
+        return new TestSuite(CxfDocumentTest.class);
     }
 
     public void testAverage() {
-	List<CxFDocument> samples = new ArrayList<CxFDocument>();
+	List<CxfDocument> samples = new ArrayList<CxfDocument>();
 	samples.add(TestData.sample1);
 	samples.add(TestData.sample2);
 	samples.add(TestData.sample3);
 	samples.add(TestData.sample4);
 	samples.add(TestData.sample5);
 
-	CxFDocument average = CxFDocument.average(samples);
+	CxfDocument average = CxfDocument.average(samples);
 	LabCoord labCoord = average.getLabCoord();
 	double L = labCoord.getL();
 	double A = labCoord.getA();
@@ -87,7 +87,9 @@ public class CxFDocumentTest
 	ColorObject colorObject = new ColorObject("one", "two", "three");
 	colorObject.addColorValues(colorValues);
 
-	CxFDocument cxf = new CxFDocument();
+	CxfDocument cxf = new CxfDocument();
 	cxf.addObject(colorObject);
+	
+	System.out.println(XML.toXML(colorObject));
     }
 }

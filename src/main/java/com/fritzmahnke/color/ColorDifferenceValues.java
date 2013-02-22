@@ -17,7 +17,7 @@ public class ColorDifferenceValues<K> {
 	map.put("dA", a);
 	map.put("dB", b);
 	map.put("dE1976", dE1976);
-	IElement element = new Element(map);
+	IElement element = new CxfElement(map);
 
 	return element;
     }

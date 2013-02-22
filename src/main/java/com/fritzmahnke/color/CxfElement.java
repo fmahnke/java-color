@@ -5,23 +5,25 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-public class Element<K, V> implements IElement<K, V> {
+import org.w3c.dom.*;
+
+public class CxfElement<K, V> implements IElement<K, V> {
     /// Element name
     private String name;
     private Map<K, V> attributes = new LinkedHashMap<K, V>();
-    private List<IElement> children = new ArrayList<IElement>();
+    private List<IElement<K, V>> children = new ArrayList<IElement<K, V>>();
     /// Element text
-    private String text = "";
+    private String text = null;
 
-    public void addChild(IElement child) {
+    public void addChild(IElement<K, V> child) {
 	children.add(child);
     }
 
-    public Element(String name) {
+    public CxfElement(String name) {
 	this.name = name;
     }
 
-    public Element(Map<K, V> map) {
+    public CxfElement(Map<K, V> map) {
 	for (K key : map.keySet()) {
 	    //attributes.add(new Attribute<K, V>(key, map.get(key)));
 	}
@@ -35,6 +37,24 @@ public class Element<K, V> implements IElement<K, V> {
 	this.text = text;
     }
 
+    public Element toXML(Document document) {
+	Element element = document.createElement(name);
+	    
+	for (K key : attributes.keySet()) {
+	    element.setAttribute(key.toString(), attributes.get(key).toString());
+	}
+	
+	if (text != null) {
+	    element.setTextContent(text);
+	}
+	
+	for (IElement<K, V> child : children) {
+	   element.appendChild(child.toXML(document)); 
+	}
+	
+	return element;
+    }
+    
     public String toJSON(int indentLevel) {
 	StringBuilder str = new StringBuilder();
 

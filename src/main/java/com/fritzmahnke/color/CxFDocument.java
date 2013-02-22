@@ -3,7 +3,7 @@ package com.fritzmahnke.color;
 import java.util.List;
 import java.util.ArrayList;
 
-public class CxFDocument {
+public class CxfDocument {
     private String sampleId;
     private String sampleName;
     private CMYKCoord cmykCoord;
@@ -76,7 +76,7 @@ public class CxFDocument {
     }
     */
 
-    public static CxFDocument average(List<CxFDocument> samples) {
+    public static CxfDocument average(List<CxfDocument> samples) {
 	double sumL = 0;
 	double sumA = 0;
 	double sumB = 0;
@@ -87,7 +87,7 @@ public class CxFDocument {
 	String masterName = samples.get(0).getSampleName();
 	
 	// Average all samples in our list
-	for (CxFDocument sample : samples) {
+	for (CxfDocument sample : samples) {
 	    LabCoord labCoord = sample.getLabCoord();
 	    sumL += labCoord.getL();
 	    sumA += labCoord.getA();
@@ -100,15 +100,15 @@ public class CxFDocument {
 	avgA = Math.round(avgA, 4);
 	avgB = Math.round(avgB, 4);
 
-	return new CxFDocument(masterSampleId, masterName, masterCMYK.getC(),
+	return new CxfDocument(masterSampleId, masterName, masterCMYK.getC(),
 			       masterCMYK.getM(), masterCMYK.getM(),
 			       masterCMYK.getM(), avgL, avgA, avgB);
     }
 
-    public CxFDocument() {
+    public CxfDocument() {
     }
 
-    public CxFDocument(String id, String name, double c, double m, double y,
+    public CxfDocument(String id, String name, double c, double m, double y,
 		       double k, double l, double a, double b) {
 	this.sampleId = id;
 	this.sampleName = name;

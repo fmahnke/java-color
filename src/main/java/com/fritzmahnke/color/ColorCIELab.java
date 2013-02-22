@@ -3,18 +3,18 @@ package com.fritzmahnke.color;
 /**
  * A ColorCIELab element.
  */
-public class ColorCIELab extends Element {
+public class ColorCIELab extends CxfElement {
     public ColorCIELab(String id, ColorSpecification spec, double L, double a,
 		       double b) {
 	super("ColorCIELab");
 	setAttribute("id", id);
-	Element elementL = new Element("L");
+	CxfElement elementL = new CxfElement("L");
 	elementL.setText(Double.toString(L));
 	addChild(elementL);
-	Element elementA = new Element("A");
+	CxfElement elementA = new CxfElement("A");
 	elementA.setText(Double.toString(a));
 	addChild(elementA);
-	Element elementB = new Element("B");
+	CxfElement elementB = new CxfElement("B");
 	elementB.setText(Double.toString(b));
 	addChild(elementB);
     }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.LinkedHashMap;
 
-public class ColorValues extends Element {
+public class ColorValues extends CxfElement {
 
     public void addColorCIELab(ColorCIELab colorCIELab) {
 	addChild(colorCIELab);
@@ -20,7 +20,7 @@ public class ColorValues extends Element {
 	map.put("L", l);
 	map.put("a", a);
 	map.put("b", b);
-	IElement element = new Element(map);
+	IElement element = new CxfElement(map);
 
 	return element;
     }

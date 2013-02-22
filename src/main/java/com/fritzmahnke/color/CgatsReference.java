@@ -12,7 +12,7 @@ public class CgatsReference implements Reference {
     private int numberOfFields;
     private int rowLength;
     private int numberOfSamples;
-    private List<CxFDocument> samples = new ArrayList<CxFDocument>();
+    private List<CxfDocument> samples = new ArrayList<CxfDocument>();
     private List<String> dataFields;
 
     private enum Flag {
@@ -115,12 +115,12 @@ public class CgatsReference implements Reference {
 	    ++fieldIndex;
 	}
 	
-	CxFDocument sample = new CxFDocument(sampleId, sampleName, c, m, y, k,
+	CxfDocument sample = new CxfDocument(sampleId, sampleName, c, m, y, k,
 					     l, a, b);
 	samples.add(sample);
     }
 
-    public List<CxFDocument> getSamples() {
+    public List<CxfDocument> getSamples() {
 	return samples;
     }
 
@@ -129,7 +129,7 @@ public class CgatsReference implements Reference {
     }
 
     public static Reference averageReference(List<Reference> refs) {
-	List<List<CxFDocument>> sampleSets = new ArrayList<List<CxFDocument>>();
+	List<List<CxfDocument>> sampleSets = new ArrayList<List<CxfDocument>>();
 
 	for (Reference ref : refs) {
 	    sampleSets.add(ref.getSamples());
@@ -141,15 +141,15 @@ public class CgatsReference implements Reference {
 	int numberOfSamples = sampleSets.get(0).size();
 	List<String> dataFields = refs.get(0).getDataFields();
 
-	List<CxFDocument> averagedSamples = new ArrayList<CxFDocument>(numberOfSamples);
+	List<CxfDocument> averagedSamples = new ArrayList<CxfDocument>(numberOfSamples);
 
 	for (int sample = 0; sample < numberOfSamples; ++sample) {
-	    List<CxFDocument> toAverage = new ArrayList<CxFDocument>();
+	    List<CxfDocument> toAverage = new ArrayList<CxfDocument>();
 
 	    for (int set = 0; set < numberOfSets; ++set) {
 	        toAverage.add(sampleSets.get(set).get(sample));
 	    }
-	    CxFDocument avgSample = CxFDocument.average(toAverage);
+	    CxfDocument avgSample = CxfDocument.average(toAverage);
 	    averagedSamples.add(avgSample);
 	}
 
@@ -158,7 +158,7 @@ public class CgatsReference implements Reference {
 	return averagedRef;
     }
 
-    public CgatsReference(List<String> fields, List<CxFDocument> samples) {
+    public CgatsReference(List<String> fields, List<CxfDocument> samples) {
 	dataFields = fields;
 	numberOfSamples = samples.size();
 	this.samples = samples;
@@ -191,7 +191,7 @@ public class CgatsReference implements Reference {
 	    ref.append("\n");
 	}
 
-	for (CxFDocument sample : samples) {
+	for (CxfDocument sample : samples) {
 	    ref.append(sample.toString());
 	}
 

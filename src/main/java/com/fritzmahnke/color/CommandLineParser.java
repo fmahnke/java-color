@@ -67,13 +67,13 @@ public class CommandLineParser {
 	    }
 	}
 
-	List<CxFDocument> samples1 = new ArrayList<CxFDocument>();
-	List<CxFDocument> samples2 = new ArrayList<CxFDocument>();
+	List<CxfDocument> samples1 = new ArrayList<CxfDocument>();
+	List<CxfDocument> samples2 = new ArrayList<CxfDocument>();
 
 	samples1 = refs.get(0).getSamples();
 	samples2 = refs.get(1).getSamples();
 
-	List<CxFDocument> results = new ArrayList<CxFDocument>();
+	List<CxfDocument> results = new ArrayList<CxfDocument>();
 
 	// Use samples1 as the master
 	// @todo Need to handle dissimilar sample sizes
@@ -84,19 +84,22 @@ public class CommandLineParser {
 	    LabCoord lab2 = samples2.get(sample).getLabCoord();
 	    LabCoord dLab = dE1976.dLab(lab1, lab2);
 	    
-	    double dE = CxFDocument.dE1976(samples1.get(sample),
+	    /*
+	    double dE = CxfDocument.dE1976(samples1.get(sample),
 					   samples2.get(sample));
+					   */
+	    double dE = 0;
 
-	    CxFDocument result = new CxFDocument();
+	    CxfDocument result = new CxfDocument();
 	    IElement colorValues = ColorValues.colorCieLab(lab1.getL(), lab1.getA(), lab1.getB());
 	    IElement colorDiff = ColorDifferenceValues.colorDifferenceValues(dLab, dE);
-	    result.addElement(colorValues);
-	    result.addElement(colorDiff);
+	    //result.addElement(colorValues);
+	    //result.addElement(colorDiff);
 
 	    results.add(result);
 	}
 
-	System.out.println(CxFDocument.toTable(results));
+	//System.out.println(CxfDocument.toTable(results));
     }
 
     public static void callAverage(List<String> files) {
