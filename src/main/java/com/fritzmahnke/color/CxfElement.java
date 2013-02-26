@@ -46,8 +46,16 @@ public class CxfElement<K, V> implements IElement<K, V> {
 	*/
     }
 
+    public V getAttribute(K name, V value) {
+	return attributes.get(name);
+    }
+    
     public void setAttribute(K name, V value) {
 	attributes.put(name, value);
+    }
+    
+    public String getText() {
+	return text;
     }
     
     public void setText(String text) {

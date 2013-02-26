@@ -89,5 +89,8 @@ public class CxfDocumentTest
 	cxf.addObject(colorObject);
 	
 	System.out.println(XML.toXML(colorObject));
+	
+	IElement<?, ?> test = colorValues.findChild("colorCIELab");
+	System.out.println(XML.toXML(test));
     }
 }
