@@ -18,7 +18,7 @@ import org.w3c.dom.Element;
 
 public class XML {
 
-    public static String toXML(IElement cxfElement) {
+    public static String toXML(IElement<String, String> cxfElement) {
 	DocumentBuilderFactory documentBuilderFactory =
 	    DocumentBuilderFactory.newInstance();
 	DocumentBuilder documentBuilder;

@@ -12,8 +12,9 @@ public interface IElement<K, V> {
     /**
      * Get a list of attribute names
      */
-    public void setAttribute(K name, V value);
+    //public void setAttribute(K name, V value);
     /// @todo maybe move it to own class
+    public String getName();
     public void setText(String text);
     public Element toXML(Document document);
     public String toJSON(int indentLevel);

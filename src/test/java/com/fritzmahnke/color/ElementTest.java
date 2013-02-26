@@ -27,11 +27,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import java.io.InputStream;
-import java.io.IOException;
-import java.util.List;
-import java.util.ArrayList;
-
 /**
  * Unit test for color utilities.
  */

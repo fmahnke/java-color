@@ -1,13 +1,15 @@
 package com.fritzmahnke.color;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.LinkedHashMap;
 
-public class ColorDifferenceValues<K> {
+public class ColorDifferenceValues extends CxfElement<String, Double> {
 
-    public static IElement colorDifferenceValues(LabCoord dLab, double dE1976) {
+    public ColorDifferenceValues() {
+	super("ColorDifferenceValues");
+    }
+    
+    public static IElement<String, Double> colorDifferenceValues(LabCoord dLab, double dE1976) {
 	double l = dLab.getL();
 	double a = dLab.getA();
 	double b = dLab.getB();
@@ -17,7 +19,7 @@ public class ColorDifferenceValues<K> {
 	map.put("dA", a);
 	map.put("dB", b);
 	map.put("dE1976", dE1976);
-	IElement element = new CxfElement(map);
+	IElement<String, Double> element = new CxfElement<String, Double>(map);
 
 	return element;
     }

@@ -11,28 +11,45 @@ public class CxfElement<K, V> implements IElement<K, V> {
     /// Element name
     private String name;
     private Map<K, V> attributes = new LinkedHashMap<K, V>();
-    private List<IElement<K, V>> children = new ArrayList<IElement<K, V>>();
+    private List<IElement<?, ?>> children = new ArrayList<IElement<?, ?>>();
     /// Element text
     private String text = null;
 
-    public void addChild(IElement<K, V> child) {
+    public void addChild(IElement<?, ?> child) {
 	children.add(child);
     }
 
+    public String getName() {
+	return name;
+    }
+    
+    public IElement<?, ?> findChild(String name) {
+	IElement<?, ?> child = null;
+	    
+	for (IElement<?, ?> element : children) {
+	    if (element.getName().compareToIgnoreCase(name) == 0) {
+		child = element;
+	    }
+	}
+	return child;
+    }
+    
     public CxfElement(String name) {
 	this.name = name;
     }
 
     public CxfElement(Map<K, V> map) {
+	/*
 	for (K key : map.keySet()) {
 	    //attributes.add(new Attribute<K, V>(key, map.get(key)));
 	}
+	*/
     }
 
     public void setAttribute(K name, V value) {
 	attributes.put(name, value);
     }
-
+    
     public void setText(String text) {
 	this.text = text;
     }
@@ -48,7 +65,7 @@ public class CxfElement<K, V> implements IElement<K, V> {
 	    element.setTextContent(text);
 	}
 	
-	for (IElement<K, V> child : children) {
+	for (IElement<?, ?> child : children) {
 	   element.appendChild(child.toXML(document)); 
 	}
 	
@@ -79,7 +96,7 @@ public class CxfElement<K, V> implements IElement<K, V> {
 	    str.append(indent + "\t{\n");
 	}
 
-	for (IElement child : children) {
+	for (IElement<?, ?> child : children) {
 	    str.append(child.toJSON(indentLevel + 1));
 	}
 	

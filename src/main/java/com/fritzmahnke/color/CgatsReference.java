@@ -56,7 +56,7 @@ public class CgatsReference implements Reference {
     }
 
     private void parseDataFormatLine(String[] line) {
-	List<String> fields = new ArrayList();
+	List<String> fields = new ArrayList<String>();
 
 	for (String field : line) {
 	    if (! field.matches("\\s")) {

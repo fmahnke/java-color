@@ -80,19 +80,17 @@ public class CommandLineParser {
 
 	for (int sample = 0; sample < samples1.size(); ++sample) {
 
-	    LabCoord lab1 = samples1.get(sample).getLabCoord();
-	    LabCoord lab2 = samples2.get(sample).getLabCoord();
-	    LabCoord dLab = dE1976.dLab(lab1, lab2);
+	    //LabCoord lab1 = samples1.get(sample).getLabCoord();
+	    //LabCoord lab2 = samples2.get(sample).getLabCoord();
+	    //LabCoord dLab = dE1976.dLab(lab1, lab2);
 	    
 	    /*
 	    double dE = CxfDocument.dE1976(samples1.get(sample),
 					   samples2.get(sample));
 					   */
-	    double dE = 0;
-
 	    CxfDocument result = new CxfDocument();
-	    IElement colorValues = ColorValues.colorCieLab(lab1.getL(), lab1.getA(), lab1.getB());
-	    IElement colorDiff = ColorDifferenceValues.colorDifferenceValues(dLab, dE);
+	    //IElement colorValues = ColorValues.colorCieLab(lab1.getL(), lab1.getA(), lab1.getB());
+	    //IElement colorDiff = ColorDifferenceValues.colorDifferenceValues(dLab, dE);
 	    //result.addElement(colorValues);
 	    //result.addElement(colorDiff);
 
