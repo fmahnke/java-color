@@ -10,7 +10,7 @@ public class ColorValues extends CxfElement<String, Double> {
     }
 
     public ColorValues() {
-	super("ColorValues");
+	super(Constants.COLOR_VALUES);
     }
 
     public static IElement<String, Double> colorCieLab(double l, double a, double b) {

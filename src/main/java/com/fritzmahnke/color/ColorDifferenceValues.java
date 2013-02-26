@@ -9,11 +9,11 @@ package com.fritzmahnke.color;
 public class ColorDifferenceValues extends CxfElement<String, Double> {
 
     public ColorDifferenceValues() {
-	super("ColorDifferenceValues");
+	super(Constants.COLOR_DIFFERENCE_VALUES);
     }
     
     public ColorDifferenceValues(ColorCIELab lab1, ColorCIELab lab2) {
-	super("ColorDifferenceValues");
+	super(Constants.COLOR_DIFFERENCE_VALUES);
 	
 	double l1 = Double.parseDouble(lab1.findChild("L").getText());
 	double a1 = Double.parseDouble(lab1.findChild("A").getText());
@@ -23,7 +23,6 @@ public class ColorDifferenceValues extends CxfElement<String, Double> {
 	double b2 = Double.parseDouble(lab2.findChild("B").getText());
 	
 	LabCoord dLab = dE1976.dLab(new LabCoord(l1, a1, b1), new LabCoord(l2, a2, b2));
-	ColorDifferenceValues diffVal = new ColorDifferenceValues();
 	IElement<?, ?> deltaCIELab = new CxfElement<String, String>("DeltaCIELab");
 	IElement<String, String> dL = new CxfElement<String, String>("dL");
 	IElement<String, String> da = new CxfElement<String, String>("da");
@@ -32,7 +31,7 @@ public class ColorDifferenceValues extends CxfElement<String, Double> {
 	deltaCIELab.addChild(dL);
 	deltaCIELab.addChild(da);
 	deltaCIELab.addChild(db);
-	diffVal.addChild(deltaCIELab);
+	addChild(deltaCIELab);
 	
 	dL.setText(Double.toString(dLab.getL()));
 	da.setText(Double.toString(dLab.getA()));

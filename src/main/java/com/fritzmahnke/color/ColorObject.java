@@ -15,7 +15,7 @@ public class ColorObject extends CxfElement<String, String> {
 
     public ColorObject(String id, String name,
 		       String objectType) {
-	super("Object");
+	super(Constants.COLOR_OBJECT);
 	setAttribute(id, name);
 	setAttribute("Id", id);
 	setAttribute("Name", name);

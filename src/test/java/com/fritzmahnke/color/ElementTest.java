@@ -55,4 +55,17 @@ public class ElementTest
 	ColorObject colorObject = new ColorObject("one", "one", "one");
 	System.out.println(colorObject.toString());
     }
+    
+    public void testColorDifferenceValues() {
+	String id = "id";
+	MeasurementSpec measSpec = new MeasurementSpec();
+	ColorSpecification spec = new ColorSpecification(id, measSpec);
+	ColorCIELab lab1 = new ColorCIELab(id, spec, TestData.lab1[0], TestData.lab1[1], TestData.lab1[2]);
+	ColorCIELab lab2 = new ColorCIELab(id, spec, TestData.lab2[0], TestData.lab2[1], TestData.lab2[2]);
+	ColorDifferenceValues diff = new ColorDifferenceValues(lab1, lab2);
+	
+	System.out.println(XML.toXML(diff));
+	
+	
+    }
 }
