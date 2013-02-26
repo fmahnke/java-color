@@ -12,15 +12,5 @@ public class ColorValues extends CxfElement<String, Double> {
     public ColorValues() {
 	super(Constants.COLOR_VALUES);
     }
-
-    public static IElement<String, Double> colorCieLab(double l, double a, double b) {
-	Map<String, Double> map = new LinkedHashMap<String, Double>();
-	map.put("L", l);
-	map.put("a", a);
-	map.put("b", b);
-	IElement<String, Double> element = new CxfElement<String, Double>(map);
-
-	return element;
-    }
 }
 

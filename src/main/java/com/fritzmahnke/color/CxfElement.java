@@ -38,14 +38,6 @@ public class CxfElement<K, V> implements IElement<K, V> {
 	this.name = name;
     }
 
-    public CxfElement(Map<K, V> map) {
-	/*
-	for (K key : map.keySet()) {
-	    //attributes.add(new Attribute<K, V>(key, map.get(key)));
-	}
-	*/
-    }
-
     public V getAttribute(K name, V value) {
 	return attributes.get(name);
     }
